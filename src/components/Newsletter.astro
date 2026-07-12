@@ -1,0 +1,79 @@
+---
+// AI पत्र — value-first newsletter signup. Collects name + email, emailed to girishk100@gmail.com
+// via FormSubmit (needs one-time activation on first submission).
+---
+<section class="section" id="patra">
+  <div class="wrap">
+    <div class="patra reveal">
+      <div class="patra-grid">
+        <div>
+          <span class="kicker">AI पत्र</span>
+          <h2>आठवड्यातून एकदा — AI मधली एक गोष्ट, सोप्या भाषेत.</h2>
+          <p class="lead">जाहिरात नाही. गोंधळ नाही. फक्त एक उपयोगी कल्पना, आणि नवीन वर्कशॉप्सची आधी माहिती.</p>
+          <ul>
+            <li>एका आठवड्याला एक विषय, ३ मिनिटांत वाचून होईल एवढा</li>
+            <li>मराठीत, उदाहरणांसह</li>
+            <li>वर्कशॉप्सची घोषणा सर्वात आधी इथेच</li>
+          </ul>
+        </div>
+        <form class="patra-form" id="patraForm" action="https://formsubmit.co/ajax/girishk100@gmail.com" method="POST">
+          <div class="field">
+            <label for="p-name">नाव</label>
+            <input id="p-name" name="नाव" type="text" required placeholder="तुमचं नाव" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="p-email">ईमेल</label>
+            <input id="p-email" name="ईमेल" type="email" required placeholder="you@email.com" autocomplete="email" />
+          </div>
+          <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <input type="hidden" name="_subject" value="📩 AI पत्र — नवीन सदस्य" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <button class="btn btn-primary" type="submit">AI पत्र मिळवा</button>
+          <div class="formmsg" id="patraMsg"></div>
+          <p class="formnote">तुमची माहिती सुरक्षित. कधीही थांबवता येईल.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const f = document.getElementById('patraForm');
+  if (f) {
+    const msg = document.getElementById('patraMsg');
+    const btn = f.querySelector('button[type="submit"]');
+    f.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      if (f.querySelector('[name="_honey"]').value) return;
+      msg.className = 'formmsg';
+      msg.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'पाठवत आहे…';
+      const data = {};
+      new FormData(f).forEach((v, k) => (data[k] = v));
+      fetch(f.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then((r) => {
+          if (!r.ok) throw new Error('fail');
+          return r.json().catch(() => ({}));
+        })
+        .then(() => {
+          f.reset();
+          msg.className = 'formmsg ok';
+          msg.textContent = 'धन्यवाद! तुमची नोंदणी झाली. 🎉';
+          btn.disabled = false;
+          btn.textContent = 'AI पत्र मिळवा';
+        })
+        .catch(() => {
+          btn.disabled = false;
+          btn.textContent = 'AI पत्र मिळवा';
+          msg.className = 'formmsg err';
+          msg.innerHTML = 'तांत्रिक अडचण — कृपया थेट ईमेल करा: girishk100@gmail.com';
+        });
+    });
+  }
+</script>

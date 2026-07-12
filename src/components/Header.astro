@@ -1,0 +1,17 @@
+---
+import { nav } from '../data/site.js';
+const { path = '/' } = Astro.props;
+const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
+const links = nav.filter((i) => i.href !== '/');
+---
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark">GK</span> डॉ. गिरीश कुलकर्णी</a>
+    <nav class="nav" aria-label="मुख्य नेव्हिगेशन">
+      {links.map((i) => (
+        <a href={i.href} aria-current={isActive(i.href) ? 'page' : undefined}>{i.label}</a>
+      ))}
+    </nav>
+    <button class="nav-toggle" aria-label="मेनू उघडा/बंद करा"><span></span><span></span><span></span></button>
+  </div>
+</header>

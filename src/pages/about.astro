@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { socials } from '../data/site.js';
+---
+<BaseLayout
+  title="माझ्याविषयी — डॉ. गिरीश कुलकर्णी"
+  description="गणितात Ph.D., कॅनडा–जर्मनी–TIFR इथे संशोधन, आणि आता AI वर काम. AI सोप्या मराठीत समजावण्याचा एक प्रयत्न."
+>
+  <section class="section">
+    <div class="wrap hero-grid" style="align-items:start">
+      <div>
+        <span class="kicker">माझ्याविषयी</span>
+        <h1 class="display" style="font-size:clamp(2rem,4vw,2.8rem);margin-top:12px">मी गिरीश कुलकर्णी</h1>
+        <div class="prose" style="margin-top:18px;max-width:none">
+          <p>माझं शिक्षण गणितात झालं. <strong>algebraic geometry</strong> या विषयात IISER पुणे येथून Ph.D. केली; त्याआधी IIT मद्रास आणि कॅनडातील University of Western Ontario इथे M.Sc.</p>
+          <p>पुढे कॅनडा, जर्मनी (Wuppertal आणि Düsseldorf) आणि TIFR मुंबई इथे काही वर्षं संशोधन केलं. गेल्या काही वर्षांत machine learning आणि artificial intelligence वर काम करताना एक गोष्ट प्रकर्षाने जाणवली — AI बद्दल प्रचंड चर्चा आहे, पण ते नेमकं काय आहे याची स्पष्ट आणि प्रामाणिक माहिती फार कमी आहे.</p>
+          <p>म्हणून हा प्रयत्न. इथे मी AI बद्दल लिहितो, छोटे प्रयोग करतो आणि कार्यशाळा घेतो. शक्य तिथे मराठीत.</p>
+          <p>सध्या मी <strong>Vidhan.AI</strong> या कायदेविषयक AI कंपनीचा सहसंस्थापक आहे, आणि Bhaskaracharya Pratishthana, Fergusson, Wadia अशा ठिकाणी AI शिकवतो. मोकळ्या वेळात सतार वाजवतो आणि कविता करतो.</p>
+        </div>
+        <div class="cta-row" style="margin-top:22px">
+          <a class="btn btn-outline" href={socials.github} target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-outline" href={socials.vidhan} target="_blank" rel="noopener">Vidhan.AI</a>
+          <a class="btn btn-outline" href={`mailto:${socials.email}`}>ईमेल</a>
+        </div>
+      </div>
+      <div class="hero-portrait">
+        <img src="/assets/girish.jpg" alt="डॉ. गिरीश कुलकर्णी" width="300" height="300" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

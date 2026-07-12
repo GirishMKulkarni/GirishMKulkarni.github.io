@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { upcoming } from '../data/workshops.js';
+
+const noteModules = import.meta.glob('./notes/*.md', { eager: true });
+const notes = Object.values(noteModules)
+  .map((m) => ({ ...m.frontmatter, url: m.url }))
+  .sort((a, b) => String(b.pubDate).localeCompare(String(a.pubDate)));
+const latest = notes.slice(0, 4);
+
+const startHere = [
+  { n: '०१', title: 'AI म्हणजे काय?', desc: '५ मिनिटांत, गणिताशिवाय.', href: '/notes/ai-mhanje-kay' },
+  { n: '०२', title: 'ChatGPT विचार करतं का?', desc: 'ते नक्की कसं काम करतं?', href: '/notes/chatgpt-vichar-karta-ka' },
+  { n: '०३', title: 'ChatGPT खोटं का बोलतं?', desc: 'कधी विश्वास ठेवायचा, कधी नाही.', href: '/notes/chatgpt-khota-ka-bolta' },
+  { n: '०४', title: 'Deepfake कसा ओळखायचा?', desc: 'फसवणुकीपासून स्वतःचं रक्षण.', href: '/notes/deepfake-kasa-olakhaycha' },
+];
+const w = upcoming[0];
+---
+<BaseLayout
+  title="डॉ. गिरीश कुलकर्णी — AI समजून घ्या, सोप्या मराठीत"
+  ogTitle="AI समजून घ्या, सोप्या मराठीत — डॉ. गिरीश कुलकर्णी"
+  description="गणित, संशोधन आणि प्रत्यक्ष AI बनवण्याच्या अनुभवातून कृत्रिम बुद्धिमत्ता सोप्या मराठीत. नोट्स, प्रयोग आणि कार्यशाळा."
+>
+  <section class="hero">
+    <div class="hero-dots"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="tagline">Exploring AI · Explaining it simply</p>
+        <h1>AI मुळे जग बदलतंय.<br /><span class="hl">चला, ते नीट समजून घेऊया.</span></h1>
+        <p class="sub">गणित, संशोधन आणि प्रत्यक्ष AI बनवण्याच्या अनुभवातून — कृत्रिम बुद्धिमत्ता सोप्या मराठीत. नोट्स, प्रयोग आणि कार्यशाळा.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="/notes/">AI नोट्स वाचा</a>
+          <a class="btn btn-outline btn-lg" href="/workshops/">वर्कशॉप्स पाहा</a>
+        </div>
+      </div>
+      <div class="hero-portrait">
+        <img src="/assets/girish.jpg" alt="डॉ. गिरीश कुलकर्णी" width="300" height="300" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">सुरुवात इथून</span>
+        <h2>AI शिकायला सुरुवात कुठून करू?</h2>
+        <p>पूर्णपणे नवीन आहात? हरकत नाही. या चार गोष्टींपासून सुरुवात करा.</p>
+      </div>
+      <div class="grid c4">
+        {startHere.map((c) => (
+          <a class="startcard reveal" href={c.href}>
+            <span class="n">{c.n}</span>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+            <span class="go">वाचा →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <a class="more" href="/notes/">सर्व नोट्स →</a>
+        <span class="kicker">AI नोट्स</span>
+        <h2>छोट्या, उपयोगी नोट्स</h2>
+        <p>प्रत्येक नोट ३–४ मिनिटांत वाचून होईल. जाहिरात नाही, फक्त समजून घेणं.</p>
+      </div>
+      <div class="grid c2">
+        {latest.map((nt) => (
+          <a class="note-card reveal" href={nt.url}>
+            <div class="meta"><span class="cat">{nt.category}</span><span>{nt.readingTime}</span></div>
+            <h3>{nt.title}</h3>
+            <p>{nt.description}</p>
+            <span class="go">वाचा →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <span class="kicker" style="display:inline-flex;margin-bottom:16px">एक AI तथ्य</span>
+      <div class="onefact reveal">
+        <p class="q">ChatGPT ला १० कोटी वापरकर्ते मिळायला फक्त २ महिने लागले.</p>
+        <p>हे महत्त्वाचं का? कारण आधीच्या तंत्रज्ञानांप्रमाणे AI वापरायला खास यंत्र किंवा प्रशिक्षण लागत नाही — फक्त आपली भाषा आली की झालं. म्हणूनच ते इतक्या वेगाने सर्वांपर्यंत पोहोचतंय.</p>
+        <p class="src">स्रोत: Reuters / UBS अंदाज, फेब्रुवारी २०२३</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <a class="more" href="/workshops/">सर्व वर्कशॉप्स →</a>
+        <span class="kicker">येणारी कार्यशाळा</span>
+        <h2>प्रत्यक्ष शिका</h2>
+      </div>
+      <div class="wshop up reveal">
+        <div class="photo">GK</div>
+        <div class="body">
+          <div class="tags">
+            <span class="badge">{w.mode}</span><span class="badge">{w.duration}</span><span class="badge">{w.audience}</span>
+          </div>
+          <h3>{w.title}</h3>
+          <p>{w.desc}</p>
+          <div class="when">{w.when} · <a href="/#patra">कळवण्यासाठी नोंदणी करा</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <div class="section-head">
+        <a class="more" href="/experiments/">सर्व प्रयोग →</a>
+        <span class="kicker">प्रयोग</span>
+        <h2>“AI शक्तिशाली आहे” असं फक्त सांगत नाही — तपासून बघतो.</h2>
+        <p>एका शास्त्रज्ञाच्या नजरेतून AI चे छोटे प्रयोग, निकालांसह.</p>
+      </div>
+      <div class="grid c3">
+        <div class="exp reveal"><span class="status">लवकरच</span><h3>ChatGPT ला M.Sc. गणित सोडवता येतं का?</h3><p>२० प्रश्न देऊन गुण तपासतो.</p></div>
+        <div class="exp reveal"><span class="status">लवकरच</span><h3>मराठी vs इंग्रजी प्रश्न — उत्तरात फरक पडतो का?</h3><p>तेच प्रश्न दोन भाषांत विचारून तुलना.</p></div>
+        <div class="exp reveal"><span class="status">लवकरच</span><h3>AI किती वेळा खोटे कायदेशीर संदर्भ देतं?</h3><p>Vidhan.AI च्या अनुभवातून.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+
+  <section class="section">
+    <div class="wrap narrow" style="text-align:center">
+      <span class="kicker" style="display:inline-flex">माझ्याविषयी</span>
+      <h2 class="display" style="font-size:clamp(1.6rem,3vw,2.2rem);margin-top:12px">मी गिरीश कुलकर्णी</h2>
+      <p style="color:var(--muted);margin-top:14px">गणितात Ph.D., कॅनडा–जर्मनी–TIFR इथे संशोधन, आणि आता machine learning व AI वर काम. AI बद्दल खूप चर्चा आहे, पण स्पष्ट माहिती कमी — म्हणून हा प्रयत्न. इथे मी लिहितो, प्रयोग करतो आणि कार्यशाळा घेतो. शक्य तिथे मराठीत.</p>
+      <p style="margin-top:18px"><a class="btn btn-outline" href="/about/">अधिक वाचा →</a></p>
+    </div>
+  </section>
+</BaseLayout>

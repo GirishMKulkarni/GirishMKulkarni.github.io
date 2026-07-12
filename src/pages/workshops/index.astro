@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { upcoming, past } from '../../data/workshops.js';
+---
+<BaseLayout
+  title="वर्कशॉप्स — डॉ. गिरीश कुलकर्णी"
+  description="AI आणि machine learning वरील कार्यशाळा — विद्यार्थी, शिक्षक, व्यावसायिक आणि संस्थांसाठी, सोप्या मराठीत."
+>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">वर्कशॉप्स</span>
+        <h2>प्रत्यक्ष शिकण्यासाठी कार्यशाळा</h2>
+        <p>ऑनलाइन आणि प्रत्यक्ष — विद्यार्थी, शिक्षक, व्यावसायिक आणि संस्थांसाठी. तुमच्या संस्थेसाठी कार्यशाळा हवी असल्यास <a href="mailto:girishk100@gmail.com">ईमेल करा</a>.</p>
+      </div>
+      <h3 style="font-family:var(--fdisp);font-weight:400;font-size:1.4rem;margin-bottom:16px">येणाऱ्या कार्यशाळा</h3>
+      <div class="grid" style="gap:16px">
+        {upcoming.map((wk) => (
+          <div class="wshop up reveal">
+            <div class="photo">GK</div>
+            <div class="body">
+              <div class="tags">
+                <span class="badge">{wk.mode}</span><span class="badge">{wk.duration}</span><span class="badge">{wk.audience}</span>
+              </div>
+              <h3>{wk.title}</h3>
+              <p>{wk.desc}</p>
+              <div class="when">{wk.when} · <a href="/#patra">कळवण्यासाठी नोंदणी करा</a></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">झालेल्या कार्यशाळा</span>
+        <h2>आतापर्यंत घेतलेल्या कार्यशाळा</h2>
+        <p>Bhaskaracharya Pratishthana, Fergusson, Wadia अशा संस्थांमध्ये. फोटो लवकरच जोडले जातील.</p>
+      </div>
+      <div class="grid c2">
+        {past.map((wk) => (
+          <div class="wshop past reveal">
+            <div class="photo">{wk.photo ? <img src={wk.photo} alt={wk.title} /> : <span>फोटो लवकरच</span>}</div>
+            <div class="body">
+              <div class="tags"><span class="badge">{wk.meta}</span></div>
+              <h3>{wk.title}</h3>
+              <p>{wk.where}</p>
+              <div class="when">{wk.when}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

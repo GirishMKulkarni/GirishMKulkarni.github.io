@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const modules = import.meta.glob('./*.md', { eager: true });
+const notes = Object.values(modules)
+  .map((m) => ({ ...m.frontmatter, url: m.url }))
+  .sort((a, b) => String(b.pubDate).localeCompare(String(a.pubDate)));
+---
+<BaseLayout
+  title="AI नोट्स — डॉ. गिरीश कुलकर्णी"
+  description="AI बद्दल छोट्या, उपयोगी नोट्स — सोप्या मराठीत. प्रत्येक नोट ३–४ मिनिटांत वाचून होईल."
+>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">AI नोट्स</span>
+        <h2>AI, सोप्या भाषेत</h2>
+        <p>प्रत्येक नोट छोटी आणि उपयोगी. जाहिरात नाही, गोंधळ नाही — फक्त एक गोष्ट नीट समजून घेणं.</p>
+      </div>
+      <div class="grid c2">
+        {notes.map((nt) => (
+          <a class="note-card reveal" href={nt.url}>
+            <div class="meta"><span class="cat">{nt.category}</span><span>वाचायला वेळ: {nt.readingTime}</span></div>
+            <h3>{nt.title}</h3>
+            <p>{nt.description}</p>
+            <span class="go">वाचा →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

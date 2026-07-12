@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { tools } from '../../data/tools.js';
+---
+<BaseLayout
+  title="साधनं — मी वापरतो ती AI टूल्स — डॉ. गिरीश कुलकर्णी"
+  description="मी प्रत्यक्ष वापरतो ती AI साधनं — प्रत्येक काय करतं, कोणासाठी आहे आणि कशाची काळजी घ्यावी. जाहिरात नाही."
+>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">साधनं</span>
+        <h2>मी प्रत्यक्ष वापरतो ती AI साधनं</h2>
+        <p>जाहिरात नाही, affiliate link नाही. प्रत्येक साधन काय करतं, कोणासाठी आहे, आणि कशाची काळजी घ्यावी — एवढंच. बहुतेक साधनांना मोफत सुरुवात करता येते.</p>
+      </div>
+      <div class="grid c2">
+        {tools.map((t) => (
+          <div class="tool reveal">
+            <h3><span class="e">{t.emoji}</span> {t.name}</h3>
+            <dl>
+              <dt>काय करतं</dt><dd>{t.what}</dd>
+              <dt>कोणासाठी</dt><dd>{t.who}</dd>
+              <dt>उदाहरण</dt><dd>{t.example}</dd>
+            </dl>
+            <dl class="caution"><dt>काळजी</dt><dd>{t.caution}</dd></dl>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
